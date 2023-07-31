@@ -2,37 +2,32 @@
 <html>
 <head>
     <title>Visualisation de nuage de points</title>
-    <!-- Inclure les fichiers de Potree -->
-    <script src="potree.js"></script>
-    <link rel="stylesheet" href="potree.css">
+    <!-- Inclure les fichiers de Potree à partir du CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/potree@1.8.0/build/potree/potree.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/potree@1.8.0/build/potree/potree.css">
 </head>
 <body>
     <!-- Div pour contenir la visualisation du nuage de points -->
     <div id="potree_render_area" style="width: 100%; height: 500px;"></div>
 
+    <!-- Fichier cloud.js dans le dossier data -->
+    <script src="cloud.js"></script>
+
     <script>
-        // Charger le fichier cloud.js en tant que JSON
-        fetch('cloud.js')
-            .then(response => response.json())
-            .then(data => {
-                // Configuration de Potree et chargement du nuage de points
-                const viewer = new Potree.Viewer("potree_render_area");
-                viewer.setEDLEnabled(true); // Activer l'éclairage basé sur les équations
+        // Configuration de Potree et chargement du nuage de points
+        const viewer = new Potree.Viewer("potree_render_area");
+        viewer.setEDLEnabled(true); // Activer l'éclairage basé sur les équations
 
-                // Charger le nuage de points avec les données JSON chargées
-                viewer.loadPointCloud(data);
+        // Charger le nuage de points (remplacez 'mon_nuage_de_points' par le chemin vers vos fichiers Potree)
+        viewer.loadPointCloud("data/cloud.js", "data/cloud.json");
 
-                // Configurer d'autres options de visualisation si nécessaire
-                // viewer.setFOV(60); // Changer le champ de vision (FOV)
-                // viewer.setBackground("white"); // Changer la couleur de fond
+        // Configurer d'autres options de visualisation si nécessaire
+        // viewer.setFOV(60); // Changer le champ de vision (FOV)
+        // viewer.setBackground("white"); // Changer la couleur de fond
 
-                // Démarrer la visualisation
-                viewer.init();
-                viewer.render();
-            })
-            .catch(error => {
-                console.error('Erreur lors du chargement du fichier cloud.js:', error);
-            });
+        // Démarrer la visualisation
+        viewer.init();
+        viewer.render();
     </script>
 </body>
 </html>
